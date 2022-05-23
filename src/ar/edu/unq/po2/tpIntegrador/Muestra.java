@@ -1,29 +1,53 @@
 package ar.edu.unq.po2.tpIntegrador;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Muestra {
 
-	private int idUsuario;
+	private Usuario usuario;
+	private LocalDate fecha;
 	private Ubicacion ubicacion;
 	private String foto;
 	private Especie especie;
+	private List<Opinion> opiniones;
 
-	public Muestra(Especie especie, String foto, Ubicacion ubicacion, int idUsuario) {
+	public Muestra(Especie especie, String foto, Ubicacion ubicacion, Usuario usuario) {
 		this.especie = especie;
 		this.foto = foto;
 		this.ubicacion = ubicacion;
-		this.idUsuario = idUsuario;
+		this.usuario = usuario;
+		this.fecha = LocalDate.now();
+		this.inicializarOpiniones();
+	}
+	
+	private void inicializarOpiniones() {
+		opiniones = new ArrayList<>();
+		opiniones.add(new Opinion(this.usuario, this.especie.convertidaAOpinion()));
+	}
+	
+	public List<Opinion> opiniones() {
+		return this.opiniones;
+	}
+	
+	public Especie especie() {
+		return this.especie;
+	}
+
+	public LocalDate fecha() {
+		return this.fecha;
 	}
 	
 	public Ubicacion ubicacion() {
 		return this.ubicacion;
 	}
 	
-	public int idUsuario() {
-		return this.idUsuario;
+	public Usuario usuario() {
+		return this.usuario;
 	}
 
-	public TipoOpinion opinionDelUsuario() {
-		return especie.convertidaAOpinion();
+	public void opinar(Opinion unaOpinion) {
+		this.opiniones.add(unaOpinion);
 	}
-
 }
