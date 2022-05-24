@@ -3,12 +3,8 @@ package ar.edu.unq.po2.tpIntegrador;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import ar.edu.unq.po2.tpIntegrador.buscador.BuscadorDeMuestras;
-import ar.edu.unq.po2.tpIntegrador.buscador.EstrategiaBuscador;
-
 public final class SistemaDeMuestras {
 
-	private BuscadorDeMuestras buscador;
 	private List<Muestra> muestras;
 	private List<ZonaDeCobertura> zonasDeCoberturas;
 	
