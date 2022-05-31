@@ -17,13 +17,20 @@ class OpinionTests {
 	void setUp() {
 		usuario = Mockito.mock(Usuario.class);
 		Mockito.when(usuario.esExperto()).thenReturn(true);
-		opinion = new Opinion(usuario, TipoOpinion.VINCHUCA_INFESTANS);
+		opinion = new Opinion(usuario, Especie.INFESTANS);
 	}
 	
 	
 	@Test
 	void testUnaOpinionTieneTipo() {
-		assertEquals(TipoOpinion.VINCHUCA_INFESTANS, opinion.tipo());
+		assertEquals(Especie.INFESTANS, opinion.tipo());
+	}
+	
+	@Test
+	void testOpinionNoVinchuca() {
+		opinion = new Opinion(usuario, NoVinchuca.IMAGEN_POCO_CLARA);
+		assertEquals(NoVinchuca.IMAGEN_POCO_CLARA, opinion.tipo());
+
 	}
 	
 	@Test

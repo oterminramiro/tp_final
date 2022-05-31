@@ -5,10 +5,10 @@ import java.time.LocalDate;
 public class Opinion {
 	
 	private boolean esOpinionDeExperto;
-	private TipoOpinion tipo;
+	private Opinable tipo;
 	private LocalDate fecha;
 
-	public Opinion(Usuario usuario, TipoOpinion tipo) {
+	public Opinion(Usuario usuario, Opinable tipo) {
 		this.esOpinionDeExperto = usuario.esExperto();
 		this.tipo = tipo;
 		this.fecha = LocalDate.now();
@@ -18,7 +18,7 @@ public class Opinion {
 		return this.fecha;
 	}
 	
-	public TipoOpinion tipo() {
+	public Opinable tipo() {
 		return this.tipo;
 	}
 	
