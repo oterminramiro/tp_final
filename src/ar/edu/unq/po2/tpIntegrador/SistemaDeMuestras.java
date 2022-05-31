@@ -19,33 +19,8 @@ public final class SistemaDeMuestras {
 	
 	public void nuevaOpinion(Muestra muestra, Opinion opinion) {
 		muestra.opinar(opinion);
-		if(opinion.esOpinionDeExperto() || this.validarMuestra(muestra)) {
+		if(muestra.esVerificada()) {
 			this.nuevaValidacion(muestra);
 		}
-	}
-	
-	private boolean validarMuestra(Muestra muestra) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public TipoOpinion resultadoActualDe(Muestra muestra) {
-		return TipoOpinion.CHINCHE_FOLIADA;
-	}
-	
-	public List<ZonaDeCobertura> zonaDeCoberturaEn(Ubicacion ubicacion){
-		return zonasDeCoberturas.stream().filter( z -> this.perteneceALaZona(ubicacion, z)).collect(Collectors.toList());
-	}
-	
-	private boolean perteneceALaZona(Ubicacion ubicacion, ZonaDeCobertura zonaDeCobertura) {
-		return Math.sqrt( this.longitudAlCuadrado(zonaDeCobertura, ubicacion) + this.latitudAlCuadrado(zonaDeCobertura, ubicacion)) <= zonaDeCobertura.radio();
-	}
-	
-	private double longitudAlCuadrado(ZonaDeCobertura zonaDeCobertura, Ubicacion ubicacion) {
-		return Math.pow((zonaDeCobertura.epicentro().getLongitud() - ubicacion.getLongitud()), 2);
-	}
-	
-	private double latitudAlCuadrado(ZonaDeCobertura zonaDeCobertura, Ubicacion ubicacion) {
-		return Math.pow((zonaDeCobertura.epicentro().getLatitud() - ubicacion.getLatitud()), 2);
 	}
 }
