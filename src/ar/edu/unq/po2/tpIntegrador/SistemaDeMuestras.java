@@ -1,14 +1,14 @@
 package ar.edu.unq.po2.tpIntegrador;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public final class SistemaDeMuestras {
 
-	private List<Muestra> muestras;
-	private List<ZonaDeCobertura> zonasDeCoberturas;
+	private List<Muestra> muestras = new ArrayList<Muestra>();
+	private List<ZonaDeCobertura> zonasDeCoberturas = new ArrayList<ZonaDeCobertura>();
 	
-	public void nuevaValidacion(Muestra muestra) {
+	private void nuevaValidacion(Muestra muestra) {
 		zonasDeCoberturas.forEach(z -> z.reportarValidacion(muestra));
 	}
 	
@@ -22,5 +22,9 @@ public final class SistemaDeMuestras {
 		if(muestra.esVerificada()) {
 			this.nuevaValidacion(muestra);
 		}
+	}
+	
+	public List<Muestra> muestras() {
+		return this.muestras;
 	}
 }
