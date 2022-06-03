@@ -3,6 +3,8 @@ package ar.edu.unq.po2.tpIntegrador;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.edu.unq.po2.tpIntegrador.buscador.Filtro;
+
 public final class SistemaDeMuestras {
 
 	private List<Muestra> muestras = new ArrayList<Muestra>();
@@ -26,5 +28,9 @@ public final class SistemaDeMuestras {
 	
 	public List<Muestra> muestras() {
 		return this.muestras;
+	}
+	
+	public List<Muestra> buscar(Filtro filtro){
+		return filtro.filtrar(this.muestras);
 	}
 }
