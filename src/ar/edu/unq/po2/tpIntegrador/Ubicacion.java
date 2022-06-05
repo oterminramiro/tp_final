@@ -1,19 +1,24 @@
 package ar.edu.unq.po2.tpIntegrador;
 
 public class Ubicacion {
-	private Double latitud; 
-	private Double longitud;
+	public Ubicacion(double latitud, double longitud) {
+		super();
+		this.latitud = latitud;
+		this.longitud = longitud;
+	}
+	private double latitud; 
+	private double longitud;
 	
-	public Double getLatitud() {
+	public double getLatitud() {
 		return latitud;
 	}
-	public void setLatitud(Double latitud) {
+	public void setLatitud(double latitud) {
 		this.latitud = latitud;
 	}
-	public Double getLongitud() {
+	public double getLongitud() {
 		return longitud;
 	}
-	public void setLongitud(Double longitud) {
+	public void setLongitud(double longitud) {
 		this.longitud = longitud;
 	}
 }
