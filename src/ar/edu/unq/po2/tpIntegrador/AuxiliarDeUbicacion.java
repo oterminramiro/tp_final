@@ -36,5 +36,16 @@ public class AuxiliarDeUbicacion {
 		
 		return cercanas;
 	}
+
+	public List<Muestra> muestrasAMenosDe(Muestra referencia, List<Muestra> muestras, double km) {
+		
+		List<Muestra> cercanas = muestras
+								.stream()
+								.filter(muestra -> this.distanciaEntre(muestra.ubicacion(), referencia.ubicacion()) <= km )
+								.collect(Collectors.toList());
+
+		return cercanas;
+	
+	}
 	
 }
