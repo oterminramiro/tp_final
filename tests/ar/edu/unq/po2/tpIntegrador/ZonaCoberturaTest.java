@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-class ZonaCoberturaTest {
+class ZonaCoberturaTest  {
 
 	ZonaDeCobertura zona1;
 	ZonaDeCobertura zona2;
@@ -42,7 +42,7 @@ class ZonaCoberturaTest {
 	//	assertE(zona1.zonaSolapada(zona2));
 			assertTrue(zona1.zonaSolapada(zona2));
 	}
-
-
+	
+	
 
 }

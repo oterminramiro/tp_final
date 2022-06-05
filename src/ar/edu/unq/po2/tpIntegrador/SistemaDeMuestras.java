@@ -2,10 +2,11 @@ package ar.edu.unq.po2.tpIntegrador;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 import ar.edu.unq.po2.tpIntegrador.buscador.Filtro;
 
-public final class SistemaDeMuestras {
+public final class SistemaDeMuestras extends Observable {
 
 	private List<Muestra> muestras = new ArrayList<Muestra>();
 	private List<ZonaDeCobertura> zonasDeCoberturas = new ArrayList<ZonaDeCobertura>();
@@ -32,5 +33,10 @@ public final class SistemaDeMuestras {
 	
 	public List<Muestra> buscar(Filtro filtro){
 		return filtro.filtrar(this.muestras);
+	}
+
+	public void addObserver(ZonaDeCobertura zona) {
+		zonasDeCoberturas.add(zona);
+		
 	}
 }
