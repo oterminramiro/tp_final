@@ -1,5 +1,8 @@
 package ar.edu.unq.po2.tpIntegrador;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class AuxiliarDeUbicacion {
 
 	public Double distanciaEntre(Ubicacion ubi1, Ubicacion ubi2) {
@@ -18,6 +21,20 @@ public class AuxiliarDeUbicacion {
 		return Math.round(distancia * 100d) / 100d;
 		
 		
+	}
+
+	public List<Ubicacion> lasQueEstanAMenosDe(Ubicacion referencia, List<Ubicacion> ubicaciones, double km) {
+		
+		//List<Employee> filteredEmployees = employees
+		//									.stream()
+			//								.filter(employee -> employee.getFinalIncome() > 1500.0)
+				//							.collect(Collectors.toList());
+		List<Ubicacion> cercanas = ubicaciones
+								.stream()
+								.filter(ubicacion -> this.distanciaEntre(ubicacion, referencia) <= km )
+								.collect(Collectors.toList());
+		
+		return cercanas;
 	}
 	
 }
