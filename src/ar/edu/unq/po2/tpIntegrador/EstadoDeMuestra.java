@@ -4,6 +4,6 @@ import java.util.List;
 
 public abstract class EstadoDeMuestra {
 
-	public abstract boolean esVerificadoConsiderando(List<Opinion> opiniones);
+	public abstract boolean esVerificadoConsiderando(List<Opinion> opiniones, Muestra muestraOrigen);
 
 }

@@ -3,6 +3,7 @@ package ar.edu.unq.po2.tpIntegrador;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Muestra {
 
@@ -11,7 +12,8 @@ public class Muestra {
 	private Ubicacion ubicacion;
 	private String foto;
 	private Especie especie;
-	private List<Opinion> opiniones;
+	private List<Opinion> opinionesCuantificables;
+	private List<Opinion> opinionesHistoricas;
 	private EstadoDeMuestra estado;
 
 	public Muestra(Especie especie, String foto, Ubicacion ubicacion, Usuario usuario) {
@@ -25,8 +27,9 @@ public class Muestra {
 	}
 	
 	private void inicializarOpiniones() {
-		opiniones = new ArrayList<>();
-		opiniones.add(this.opinionInicial());
+		opinionesCuantificables = new ArrayList<>();
+		opinionesHistoricas = new ArrayList<>();
+		this.opinar(this.opinionInicial());
 	}
 	
 	private Opinion opinionInicial() {
@@ -34,15 +37,19 @@ public class Muestra {
 	}
 	
 	public boolean esVerificada() {
-		return this.estado.esVerificadoConsiderando(opiniones);
+		return this.estado.esVerificadoConsiderando(opinionesCuantificables, this);
 	}
 	
 	public void cambiarEstadoDeVerificacionCon(EstadoDeMuestra estado) {
 		this.estado = estado;
 	}
+	
+	public Opinable resultadoActual() {
+		return ContadorDeOpiniones.usando(opinionesCuantificables.stream().map(Opinion::tipo).collect(Collectors.toList())).opinionMasVotada();
+	}
 
 	public List<Opinion> opiniones() {
-		return this.opiniones;
+		return this.opinionesCuantificables;
 	}
 	
 	public Especie especie() {
@@ -62,6 +69,18 @@ public class Muestra {
 	}
 
 	public void opinar(Opinion unaOpinion) {
-		this.opiniones.add(unaOpinion);
+		if (!this.hayOpinionDeExperto() && unaOpinion.esDeExperto()) {
+			// Si es la primera opinión que hace un experto, reinicio las opiniones cuantificables.
+			this.opinionesCuantificables = new ArrayList<>();
+		}
+		if ((this.hayOpinionDeExperto() && unaOpinion.esDeExperto()) || !this.hayOpinionDeExperto()) {
+			// Si no hay opinion de experto puedo incluir cualquier opinion. Si hay y la opinion ingresada es de experto, se puede incluir.
+			this.opinionesCuantificables.add(unaOpinion);
+			this.opinionesHistoricas.add(unaOpinion);
+		}
+	}
+
+	private boolean hayOpinionDeExperto() {
+		return this.opinionesCuantificables.stream().anyMatch(Opinion::esDeExperto);
 	}
 }
