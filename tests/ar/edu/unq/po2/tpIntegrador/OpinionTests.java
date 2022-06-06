@@ -40,7 +40,7 @@ class OpinionTests {
 	
 	@Test
 	void testOpinionHechaPorUnUsuarioExperto() {
-		assertTrue(opinion.esOpinionDeExperto());
+		assertTrue(opinion.esDeExperto());
 	}
 
 }

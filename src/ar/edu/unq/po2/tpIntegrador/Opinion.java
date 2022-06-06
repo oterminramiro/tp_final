@@ -22,7 +22,7 @@ public class Opinion {
 		return this.tipo;
 	}
 	
-	public boolean esOpinionDeExperto() {
+	public boolean esDeExperto() {
 		return esOpinionDeExperto;
 	}
 
