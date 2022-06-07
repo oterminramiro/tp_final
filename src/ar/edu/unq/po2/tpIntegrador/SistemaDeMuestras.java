@@ -37,6 +37,5 @@ public final class SistemaDeMuestras extends Observable {
 
 	public void addObserver(ZonaDeCobertura zona) {
 		zonasDeCoberturas.add(zona);
-		
 	}
 }

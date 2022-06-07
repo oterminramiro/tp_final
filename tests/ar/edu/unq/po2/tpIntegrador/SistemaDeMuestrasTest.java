@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import ar.edu.unq.po2.tpIntegrador.buscador.FiltroTipoDeEspecie;
+
 class SistemaDeMuestrasTest {
 	
 	SistemaDeMuestras sistema;
@@ -48,7 +50,14 @@ class SistemaDeMuestrasTest {
 		Opinion opinion = new Opinion(usuario, Especie.INFESTANS);
 		
 		sistema.nuevaOpinion(muestra, opinion);
-		assertEquals(2, muestra.opiniones().size());
 		assertTrue(muestra.esVerificada());
+	}
+	
+	@Test
+	void testSePuedeBuscarUnaMuestra() {
+		muestra = new Muestra(Especie.INFESTANS, "images/31-infestans.jpg", Mockito.mock(Ubicacion.class), Mockito.mock(Usuario.class));
+		
+		sistema.nuevaCarga(muestra);
+		assertEquals(1, sistema.buscar(new FiltroTipoDeEspecie(Especie.INFESTANS)).size());
 	}
 }

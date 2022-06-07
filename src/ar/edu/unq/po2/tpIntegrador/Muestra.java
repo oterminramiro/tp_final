@@ -23,12 +23,12 @@ public class Muestra {
 		this.usuario = usuario;
 		this.fecha = LocalDate.now();
 		this.estado = new MuestraVotada();
+		this.opinionesCuantificables = new ArrayList<>();
+		this.opinionesHistoricas = new ArrayList<>();
 		this.inicializarOpiniones();
 	}
 	
 	private void inicializarOpiniones() {
-		opinionesCuantificables = new ArrayList<>();
-		opinionesHistoricas = new ArrayList<>();
 		this.opinar(this.opinionInicial());
 	}
 	
@@ -67,11 +67,16 @@ public class Muestra {
 	public Usuario usuario() {
 		return this.usuario;
 	}
+	
+	public EstadoDeMuestra estado() {
+		return this.estado;
+	}
 
 	public void opinar(Opinion unaOpinion) {
 		if (!this.hayOpinionDeExperto() && unaOpinion.esDeExperto()) {
-			// Si es la primera opinión que hace un experto, reinicio las opiniones cuantificables.
+			// Si es la primera opiniï¿½n que hace un experto, reinicio las opiniones cuantificables.
 			this.opinionesCuantificables = new ArrayList<>();
+			this.opinionesCuantificables.add(unaOpinion);
 		}
 		if ((this.hayOpinionDeExperto() && unaOpinion.esDeExperto()) || !this.hayOpinionDeExperto()) {
 			// Si no hay opinion de experto puedo incluir cualquier opinion. Si hay y la opinion ingresada es de experto, se puede incluir.

@@ -5,21 +5,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import ar.edu.unq.po2.tpIntegrador.Muestra;
+import ar.edu.unq.po2.tpIntegrador.Opinion;
 
-public class FiltroFechaDeVotacion implements Filtro {
-	
-	private String operador;
-	private LocalDate fechaFiltro;
+public class FiltroFechaDeVotacion extends FiltroFecha {
 
-	public FiltroFechaDeVotacion(String operador, LocalDate fechaFiltro) {
-		super();
-		this.operador = operador;
-		this.fechaFiltro = fechaFiltro;
+	public FiltroFechaDeVotacion(FechaEstrategia estrategia, LocalDate fecha) {
+		super(estrategia, fecha);
 	}
 
 	@Override
 	public List<Muestra> filtrar(List<Muestra> muestras) {
-		return muestras.stream().filter(m -> m.opiniones().get(m.opiniones().size() - 1).fecha().isBefore(fechaFiltro)).collect(Collectors.toList());
-		// TO-DO filtrar segun > >= < <=
+		return muestras.stream().filter(m -> this.filtrarOpiniones(m.opiniones())).collect(Collectors.toList());
+	}
+	
+	private boolean filtrarOpiniones(List<Opinion> opiniones) {
+		return opiniones.stream().anyMatch(o -> this.estrategia.comparar(o.fecha(), this.fecha));
 	}
 }
