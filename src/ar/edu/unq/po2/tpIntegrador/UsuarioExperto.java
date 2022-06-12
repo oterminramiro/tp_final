@@ -3,12 +3,18 @@ package ar.edu.unq.po2.tpIntegrador;
 public class UsuarioExperto implements TipoUsuario {
 
 	@Override
-	public void recategorizar(Usuario usuario) {
+	public boolean esExperto() {
+		return true;
 	}
 
 	@Override
-	public boolean esExperto() {
-		return true;
+	public void promocionar(Usuario usuario) {
+		// No se hace nada
+	}
+
+	@Override
+	public void degradar(Usuario usuario) {
+		usuario.actualizarTipoCon(new UsuarioBasico());
 	}
 
 }
