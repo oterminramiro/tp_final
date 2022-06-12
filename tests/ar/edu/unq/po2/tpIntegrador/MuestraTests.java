@@ -90,7 +90,7 @@ class MuestraTests {
 			muestra.opinar(opinion);
 		});
 		assertEquals(exception.getMessage(),
-				"El usuario no puede votar sobre la muestra porque ya existe una opinión de su autoria sobre la misma");
+				"El usuario no puede votar sobre la muestra porque ya existe una opinion de su autoria sobre la misma");
 	}
 
 	@Test

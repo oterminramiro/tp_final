@@ -18,7 +18,7 @@ public class Organizacion implements Observer{
 		this.cantTrabajadores = cantTrabajadores;
 		}
 
-// Geters y Seters
+	// Getters y Setters
 	public Ubicacion getUbicacion() {
 		return ubicacion;
 	}
@@ -43,20 +43,18 @@ public class Organizacion implements Observer{
 		this.cantTrabajadores = cantTrabajadores;
 	}
 
-// Metodos de implementacion del patron Observer
-	
+	// Metodos de implementacion del patron Observer
 	public void registrarseAZona(ZonaDeCobertura zona) {
-		zona.addObserver(this);
+		zona.agregarOrganizacionObservadora(this);
 		zonasDeInteres.add(zona);
 	}
 	
 	public void salirDelRegistroDeZona(ZonaDeCobertura zona) {
-		zona.deleteObserver(this);
+		zona.eliminarOrganizacion(this);
 	}
 
 	
-// Datos Recidos Por las Zonas de Cobertura(sujeto)
-	
+	// Datos Recibidos Por las Zonas de Cobertura(sujeto)
 	public void cargarDeMuestra(Muestra muestra) {
 		
 	}
@@ -64,11 +62,9 @@ public class Organizacion implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void validacionDeMuestra(Muestra muestra) {
-	
 	}
 
 }

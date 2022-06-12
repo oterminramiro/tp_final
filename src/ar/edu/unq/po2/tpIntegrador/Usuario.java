@@ -1,6 +1,6 @@
 package ar.edu.unq.po2.tpIntegrador;
 
-import java.time.LocalDate;
+import java.util.List;
 
 public class Usuario {
 	
@@ -32,9 +32,9 @@ public class Usuario {
 		return this.id() == unUsuario.id();
 	}
 
-	public void recategorizarConsiderando(LocalDate fechaAConsiderar, SistemaDeMuestras sistemaDeMuestras) {
-		int cantidadDeEnvios = sistemaDeMuestras.enviosDelUsuarioDesdeLaFecha(this, fechaAConsiderar);
-		int cantidadDeRevisiones = sistemaDeMuestras.revisionesDelUsuarioDesdeLaFecha(this, fechaAConsiderar);
+	public void recategorizarConsiderando(List<Muestra> muestrasDeLosUltimos30Dias, SistemaDeMuestras sistemaDeMuestras) {
+		int cantidadDeEnvios = sistemaDeMuestras.enviosDelUsuarioEn(this, muestrasDeLosUltimos30Dias);
+		int cantidadDeRevisiones = sistemaDeMuestras.revisionesDelUsuarioEn(this, muestrasDeLosUltimos30Dias);
 		this.tipo.recategorizarConsiderando(cantidadDeEnvios, cantidadDeRevisiones, this);
 	}
 }
