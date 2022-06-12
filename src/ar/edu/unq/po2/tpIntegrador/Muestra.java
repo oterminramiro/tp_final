@@ -23,12 +23,15 @@ public class Muestra {
 		this.usuario = usuario;
 		this.fecha = LocalDate.now();
 		this.estado = new MuestraVotada();
+		this.opinionesCuantificables = new ArrayList<>();
+		this.opinionesHistoricas = new ArrayList<>();
 		this.inicializarOpiniones();
 	}
 
 	private void inicializarOpiniones() throws Exception {
 		opinionesCuantificables = new ArrayList<>();
 		opinionesHistoricas = new ArrayList<>();
+
 		this.opinar(this.opinionInicial());
 	}
 
@@ -69,6 +72,10 @@ public class Muestra {
 	public Usuario usuario() {
 		return this.usuario;
 	}
+	
+	public EstadoDeMuestra estado() {
+		return this.estado;
+	}
 
 	public void opinar(Opinion unaOpinion) throws Exception {
 		validarQueNoHayaUnaOpinionHechaPor(unaOpinion.autor());
@@ -76,18 +83,21 @@ public class Muestra {
 	}
 
 	private void validarQueNoHayaUnaOpinionHechaPor(Usuario unUsuario) throws Exception {
-		// Chequeo que no exista la opinión para contemplar el caso en el que un usuario
+		// Chequeo que no exista la opiniï¿½n para contemplar el caso en el que un usuario
 		// quiera votar dos veces sobre la misma muestra.
 		if (this.opinionesCuantificables.stream().anyMatch(opinion -> opinion.fueRealizadaPor(unUsuario)))
 			throw new Exception(
-					"El usuario no puede votar sobre la muestra porque ya existe una opinión de su autoria sobre la misma");
+					"El usuario no puede votar sobre la muestra porque ya existe una opiniï¿½n de su autoria sobre la misma");
 	}
 
 	private void opinarCon(Opinion unaOpinion) {
 		if (!this.hayOpinionDeExperto() && unaOpinion.esDeExperto()) {
-			// Si es la primera opinión que hace un experto, reinicio las opiniones
+
+			// Si es la primera opiniï¿½n que hace un experto, reinicio las opiniones
 			// cuantificables.
+
 			this.opinionesCuantificables = new ArrayList<>();
+			this.opinionesCuantificables.add(unaOpinion);
 		}
 		if ((this.hayOpinionDeExperto() && unaOpinion.esDeExperto()) || !this.hayOpinionDeExperto()) {
 			// Si no hay opinion de experto puedo incluir cualquier opinion. Si hay y la
