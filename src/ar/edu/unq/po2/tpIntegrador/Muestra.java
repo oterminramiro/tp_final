@@ -40,7 +40,7 @@ public class Muestra {
 	}
 
 	public boolean esVerificada() {
-		return this.estado.esVerificadoConsiderando(opinionesCuantificables, this);
+		return this.estado().esVerificadoConsiderando(opinionesCuantificables, this);
 	}
 
 	public void cambiarEstadoDeVerificacionCon(EstadoDeMuestra estado) {
@@ -73,6 +73,10 @@ public class Muestra {
 		return this.usuario;
 	}
 	
+	public boolean fueSubidaPor(Usuario unUsuario) {
+		return this.usuario().esIgualA(unUsuario);
+	}
+	
 	public EstadoDeMuestra estado() {
 		return this.estado;
 	}
@@ -87,7 +91,7 @@ public class Muestra {
 		// quiera votar dos veces sobre la misma muestra.
 		if (this.opinionesCuantificables.stream().anyMatch(opinion -> opinion.fueRealizadaPor(unUsuario)))
 			throw new Exception(
-					"El usuario no puede votar sobre la muestra porque ya existe una opini�n de su autoria sobre la misma");
+					"El usuario no puede votar sobre la muestra porque ya existe una opinion de su autoria sobre la misma");
 	}
 
 	private void opinarCon(Opinion unaOpinion) {
@@ -97,7 +101,6 @@ public class Muestra {
 			// cuantificables.
 
 			this.opinionesCuantificables = new ArrayList<>();
-			this.opinionesCuantificables.add(unaOpinion);
 		}
 		if ((this.hayOpinionDeExperto() && unaOpinion.esDeExperto()) || !this.hayOpinionDeExperto()) {
 			// Si no hay opinion de experto puedo incluir cualquier opinion. Si hay y la
@@ -109,5 +112,9 @@ public class Muestra {
 
 	private boolean hayOpinionDeExperto() {
 		return this.opinionesCuantificables.stream().anyMatch(Opinion::esDeExperto);
+	}
+
+	public boolean fueOpinadaPor(Usuario unUsuario) {
+		return this.opinionesHistoricas.stream().anyMatch(opinion -> opinion.fueRealizadaPor(unUsuario));
 	}
 }
