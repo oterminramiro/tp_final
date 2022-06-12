@@ -18,7 +18,15 @@ public class Usuario {
 		return tipo.esExperto();
 	}
 
+	public void actualizarTipoCon(TipoUsuario tipoUsuario) {
+		this.tipo = tipoUsuario;
+	}
+	
 	public TipoUsuario tipo() {
 		return tipo;
+	}
+
+	public boolean esIgualA(Usuario unUsuario) {
+		return this.id() == unUsuario.id();
 	}
 }

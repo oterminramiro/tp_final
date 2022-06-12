@@ -3,15 +3,18 @@ package ar.edu.unq.po2.tpIntegrador;
 public class UsuarioValidadoExternamente implements TipoUsuario {
 
 	@Override
-	public void recategorizar(Usuario usuario) {
-		/* Un usuario validado externamente no debe ser recategorizado 
-		 											      -ltittarelli */
-
+	public boolean esExperto() {
+		return true;
 	}
 
 	@Override
-	public boolean esExperto() {
-		return true;
+	public void promocionar(Usuario usuario) {
+		// No se hace nada
+	}
+
+	@Override
+	public void degradar(Usuario usuario) {
+		// No se hace nada
 	}
 
 }

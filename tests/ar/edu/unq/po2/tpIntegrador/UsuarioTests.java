@@ -40,4 +40,28 @@ class UsuarioTests {
 		assertTrue(usuario.esExperto());
 	}
 
+	@Test
+	void testUsuarioIgualAOtro() {
+		tipoUsuario = Mockito.mock(UsuarioValidadoExternamente.class);
+		usuario = new Usuario(68433, tipoUsuario);
+		Usuario otroUsuario = new Usuario(68433, tipoUsuario);
+		assertTrue(usuario.esIgualA(otroUsuario));
+	}
+	
+	@Test
+	void testUsuarioNoIgualAOtro() {
+		tipoUsuario = Mockito.mock(UsuarioValidadoExternamente.class);
+		usuario = new Usuario(68433, tipoUsuario);
+		Usuario otroUsuario = new Usuario(123, tipoUsuario);
+		assertFalse(usuario.esIgualA(otroUsuario));
+	}
+	
+	@Test
+	void testCambiarElTipoDeUnUsuario() {
+		tipoUsuario = Mockito.mock(UsuarioBasico.class);
+		usuario = new Usuario(1234, tipoUsuario);
+		TipoUsuario otroTipoDeUsuario = Mockito.mock(UsuarioExperto.class);
+		usuario.actualizarTipoCon(otroTipoDeUsuario);
+		assertEquals(usuario.tipo(), otroTipoDeUsuario);
+	}
 }
