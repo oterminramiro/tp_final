@@ -8,13 +8,8 @@ public class UsuarioBasico implements TipoUsuario {
 	}
 
 	@Override
-	public void promocionar(Usuario usuario) {
-		usuario.actualizarTipoCon(new UsuarioExperto());
-	}
-
-	@Override
-	public void degradar(Usuario usuario) {
-		// No se hace nada
+	public void recategorizarConsiderando(int cantidadDeEnvios, int cantidadDeRevisiones, Usuario usuario) {
+		if (cantidadDeEnvios > 10 && cantidadDeRevisiones > 20) usuario.actualizarTipoCon(new UsuarioExperto());
 	}
 
 }

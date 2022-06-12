@@ -8,13 +8,9 @@ public class UsuarioValidadoExternamente implements TipoUsuario {
 	}
 
 	@Override
-	public void promocionar(Usuario usuario) {
-		// No se hace nada
+	public void recategorizarConsiderando(int cantidadDeEnvios, int cantidadDeRevisiones, Usuario usuario) {
+		// No se puede recategorizar a un usuario validado externamente
 	}
 
-	@Override
-	public void degradar(Usuario usuario) {
-		// No se hace nada
-	}
-
+	
 }

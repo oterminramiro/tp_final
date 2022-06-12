@@ -1,5 +1,7 @@
 package ar.edu.unq.po2.tpIntegrador;
 
+import java.time.LocalDate;
+
 public class Usuario {
 	
 	private int id;
@@ -28,5 +30,11 @@ public class Usuario {
 
 	public boolean esIgualA(Usuario unUsuario) {
 		return this.id() == unUsuario.id();
+	}
+
+	public void recategorizarConsiderando(LocalDate fechaAConsiderar, SistemaDeMuestras sistemaDeMuestras) {
+		int cantidadDeEnvios = sistemaDeMuestras.enviosDelUsuarioDesdeLaFecha(this, fechaAConsiderar);
+		int cantidadDeRevisiones = sistemaDeMuestras.revisionesDelUsuarioDesdeLaFecha(this, fechaAConsiderar);
+		this.tipo.recategorizarConsiderando(cantidadDeEnvios, cantidadDeRevisiones, this);
 	}
 }
