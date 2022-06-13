@@ -6,7 +6,7 @@ import java.util.Observable;
 
 import ar.edu.unq.po2.tpIntegrador.buscador.Filtro;
 
-public final class SistemaDeMuestras extends Observable {
+public  class SistemaDeMuestras extends Observable {
 
 	private List<Muestra> muestras = new ArrayList<Muestra>();
 	private List<ZonaDeCobertura> zonasDeCoberturas = new ArrayList<ZonaDeCobertura>();

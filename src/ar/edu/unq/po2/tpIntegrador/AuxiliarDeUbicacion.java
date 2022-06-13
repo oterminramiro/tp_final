@@ -25,10 +25,6 @@ public class AuxiliarDeUbicacion {
 
 	public List<Ubicacion> lasQueEstanAMenosDe(Ubicacion referencia, List<Ubicacion> ubicaciones, double km) {
 		
-		//List<Employee> filteredEmployees = employees
-		//									.stream()
-			//								.filter(employee -> employee.getFinalIncome() > 1500.0)
-				//							.collect(Collectors.toList());
 		List<Ubicacion> cercanas = ubicaciones
 								.stream()
 								.filter(ubicacion -> this.distanciaEntre(ubicacion, referencia) <= km )

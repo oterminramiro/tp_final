@@ -73,8 +73,8 @@ public class ZonaDeCobertura  implements Observer {
 	public void reportarCarga(Muestra muestra) {
 		
 		if(this.muestraPertenece(muestra)) {
-			this.muestrasEnZona.add(muestra);
-			organizacionesRegistada.forEach(orga -> orga.cargaDeMuestra(muestra));
+			this.cargarMuestra(muestra);
+			organizacionesRegistada.forEach(orga -> orga.cargaDeMuestra(this,muestra));
 		}
 		
 		
@@ -84,7 +84,7 @@ public class ZonaDeCobertura  implements Observer {
 
 		if(this.muestraPertenece(muestra)) {
 			this.muestrasEnZona.add(muestra);
-			organizacionesRegistada.forEach(orga -> orga.validacionDeMuestra(muestra));
+			organizacionesRegistada.forEach(orga -> orga.validacionDeMuestra(this,muestra));
 		}
 		
 	}
@@ -103,6 +103,7 @@ public class ZonaDeCobertura  implements Observer {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 	
 }
