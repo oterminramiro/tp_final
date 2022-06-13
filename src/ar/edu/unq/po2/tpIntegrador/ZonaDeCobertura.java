@@ -4,16 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.function.Supplier;
-
-import org.mockito.ArgumentMatchers;
 
 public class ZonaDeCobertura  implements Observer {
 	
-	private List<Organizacion> organizacionesRegistada= new ArrayList<Organizacion>();
+	private List<Organizacion> organizacionesRegistradas = new ArrayList<Organizacion>();
 	private List<Muestra> muestrasEnZona= new ArrayList<Muestra>();
-	
-
 	private SistemaDeMuestras sistema;
 	private String nombre;
 	private Ubicacion epicentro;
@@ -26,8 +21,8 @@ public class ZonaDeCobertura  implements Observer {
 		this.nombre = nombre;
 		this.epicentro = epicentro;
 		this.radio = radio;
-		this.aux= new AuxiliarDeUbicacion();
-		this.sistema= sistema;
+		this.aux = new AuxiliarDeUbicacion();
+		this.sistema = sistema;
 		this.sistema.addObserver(this);
 	}
 	
@@ -47,34 +42,34 @@ public class ZonaDeCobertura  implements Observer {
 
 	public List<Organizacion> organizacionesRegistradas() {
 		
-		return this.organizacionesRegistada;
+		return this.organizacionesRegistradas;
 	}
 	public List<Muestra> getMuestrasEnZona() {
 		return  this.muestrasEnZona;
 	}
 	
-	// Requerimientos ed la Clase
-	public boolean muestraPertenece(Muestra muestra1) {
-		// TODO Auto-generated method stub
-		return this.aux.distanciaEntre(this.epicentro(), muestra1.ubicacion()) <= this.radio ;
+	// Requerimientos de la Clase
+	public boolean muestraPertenece(Muestra unaMuestra) {
+		return this.aux.distanciaEntre(this.epicentro(), unaMuestra.ubicacion()) <= this.radio ;
 	}
 
-	public boolean zonaSolapada(ZonaDeCobertura zona2) {
-		return zona2.radio() > (this.aux.distanciaEntre(this.epicentro(), zona2.epicentro()) - this.radio() )  ;
+	public boolean zonaSolapada(ZonaDeCobertura unaZona) {
+		return unaZona.radio() > (this.aux.distanciaEntre(this.epicentro(), unaZona.epicentro()) - this.radio() )  ;
 		
 	}
 	
-	// Metodos de Implem,emtacion del patron Observer
-	
-	public void cargarMuestra(Muestra m) {
-		this.muestrasEnZona.add(m);
+	// Metodos de Implementacion del patron Observer
+	public void cargarMuestra(Muestra muestra) {
+		this.muestrasEnZona.add(muestra);
 	}
 	
 	public void reportarCarga(Muestra muestra) {
 		
 		if(this.muestraPertenece(muestra)) {
+
 			this.cargarMuestra(muestra);
 			organizacionesRegistada.forEach(orga -> orga.cargaDeMuestra(this,muestra));
+
 		}
 		
 		
@@ -84,24 +79,23 @@ public class ZonaDeCobertura  implements Observer {
 
 		if(this.muestraPertenece(muestra)) {
 			this.muestrasEnZona.add(muestra);
-			organizacionesRegistada.forEach(orga -> orga.validacionDeMuestra(this,muestra));
+		organizacionesRegistada.forEach(orga -> orga.validacionDeMuestra(this,muestra));
 		}
 		
 	}
 
 
 	public void agregarOrganizacionObservadora(Organizacion o) {
-		this.organizacionesRegistada.add(o);
+		this.organizacionesRegistradas.add(o);
 	}
 	
 	public void eliminarOrganizacion(Organizacion o) {
-		this.organizacionesRegistada.remove(o);
+		this.organizacionesRegistradas.remove(o);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-		
 	}
 
 

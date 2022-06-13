@@ -36,7 +36,7 @@ public class Organizacion {
 
 	
 
-	// Geters y Seters
+	// Getters y Setters
 	public Ubicacion getUbicacion() {
 		return ubicacion;
 	}
@@ -101,9 +101,8 @@ public class Organizacion {
 		
 	}
 
-	
-// Metodos de implementacion del patron Observer
-	
+
+	// Metodos de implementacion del patron Observer
 	public void registrarseAZona(ZonaDeCobertura zona) {
 		zona.agregarOrganizacionObservadora(this);
 		zonasDeInteres.add(zona);
@@ -114,6 +113,7 @@ public class Organizacion {
 	}
 
 	
+
 // Datos Recidos Por las Zonas de Cobertura(sujeto)
 	
 	public void cargaDeMuestra(ZonaDeCobertura zonaDeCobertura, Muestra muestra) {

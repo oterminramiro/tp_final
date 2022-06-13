@@ -5,14 +5,14 @@ import java.util.List;
 
 import ar.edu.unq.po2.tpIntegrador.Muestra;
 
-// cambiar a implement
 public class FiltroCompuesto implements Filtro {
-	private List<Filtro> listaFiltros = new ArrayList<Filtro>();
+	private List<Filtro> listaFiltros;
 	private FiltroEstrategia estrategia;
 	
 	public FiltroCompuesto(FiltroEstrategia estrategia) {
 		super();
 		this.estrategia = estrategia;
+		this.listaFiltros = new ArrayList<Filtro>();
 	}
 	
 	@Override

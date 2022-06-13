@@ -83,6 +83,7 @@ class ZonaCoberturaTest  {
 	void reportarMuestraALosObserversTest() {
 		this.zona1.agregarOrganizacionObservadora(this.unq);		
 		this.zona1.reportarCarga(this.muestra1);
+
 		assertTrue(this.zona1.getMuestrasEnZona().size()==1);
 		verify(this.unq).cargaDeMuestra(this.zona1,this.muestra1);
 	}

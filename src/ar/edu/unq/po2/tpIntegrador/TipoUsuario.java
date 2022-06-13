@@ -2,7 +2,7 @@ package ar.edu.unq.po2.tpIntegrador;
 
 public interface TipoUsuario {
 
-	public void recategorizar(Usuario usuario);
 	public boolean esExperto();
+	public void recategorizarConsiderando(int cantidadDeEnvios, int cantidadDeRevisiones, Usuario usuario);
 	
 }

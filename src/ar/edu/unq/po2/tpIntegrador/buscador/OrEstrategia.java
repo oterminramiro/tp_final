@@ -14,6 +14,6 @@ public class OrEstrategia implements FiltroEstrategia {
 		for (Filtro filtro : listaFiltros) {
 			resultadoFinal.addAll(filtro.filtrar(muestras));
 		}
-		return resultadoFinal.stream().distinct().collect(Collectors.toList());
+		return resultadoFinal.stream().collect(Collectors.toList());
 	}
 }
