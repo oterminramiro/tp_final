@@ -11,7 +11,7 @@ import ar.edu.unq.po2.tpIntegrador.buscador.Filtro;
 import ar.edu.unq.po2.tpIntegrador.buscador.FiltroFecha;
 import ar.edu.unq.po2.tpIntegrador.buscador.FiltroFechaDeCreacion;
 
-public final class SistemaDeMuestras extends Observable {
+public  class SistemaDeMuestras extends Observable {
 
 	private List<Muestra> muestras = new ArrayList<Muestra>();
 	private List<ZonaDeCobertura> zonasDeCoberturas = new ArrayList<ZonaDeCobertura>();
