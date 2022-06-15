@@ -34,9 +34,8 @@ public class Organizacion {
 		this.setFuncionDeValidacionDeMuestra(validacion);
 		}
 
-	
-
-	// Getters y Setters
+	  
+	// Geters y Seters
 	public Ubicacion getUbicacion() {
 		return ubicacion;
 	}
@@ -44,7 +43,7 @@ public class Organizacion {
 	public void setUbicacion(Ubicacion ubicacion) {
 		this.ubicacion = ubicacion;
 	}
-
+	
 	public TipoOrganizacion getTipo() {
 		return tipo;
 	}
@@ -74,35 +73,18 @@ public class Organizacion {
 		this.funcionDeValidacionDeMuestra = funcionDeValidacionDeMuestra;
 	}
 
-	public List<Muestra> getMuestrasDeInteres() {
-		return muestrasDeInteres;
+	public FuncionalidadExterna getFuncionDeCarga() {
+		return this.funcionDeCargaDeMuestra;
+	}
+	
+	public FuncionalidadExterna getFuncionDeValidacion() {
+		return this.funcionDeValidacionDeMuestra;
 	}
 
-
-
-	public List<Muestra> getMuestrasSobreSalientes() {
-		return muestrasSobreSalientes;
-	}
 
 	
-
-	// Valores Modificados solo por las Funciones Externas
+// Metodos de implementacion del patron Observer
 	
-
-
-	public void MuestrasSobreSalientes(List<Muestra> verificadas) {
-		this.muestrasSobreSalientes.addAll(verificadas);
-	}
-
-
-
-	public void muestrasDeInteres(List<Muestra> muestraEnZona) {
-		this.muestrasDeInteres.addAll(muestraEnZona);
-		
-	}
-
-
-	// Metodos de implementacion del patron Observer
 	public void registrarseAZona(ZonaDeCobertura zona) {
 		zona.agregarOrganizacionObservadora(this);
 		zonasDeInteres.add(zona);
@@ -113,7 +95,6 @@ public class Organizacion {
 	}
 
 	
-
 // Datos Recidos Por las Zonas de Cobertura(sujeto)
 	
 	public void cargaDeMuestra(ZonaDeCobertura zonaDeCobertura, Muestra muestra) {
@@ -123,6 +104,10 @@ public class Organizacion {
 	public void validacionDeMuestra(ZonaDeCobertura zonaDeCobertura, Muestra muestra) {
 		this.funcionDeValidacionDeMuestra.nuevoEvento(this, zonaDeCobertura, muestra);
 	}
+
+
+
+
 
 	
 

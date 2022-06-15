@@ -16,39 +16,24 @@ class OrganizacionTest {
 	private FiltroDeMuestras funcion1;
 	private MuestrasCercanas funcion2;
 	private MuestrasMasJovenes funcion3;
+	private ImprimirMuestra funcion4;
 	private Muestra muestra1;
-	private Muestra muestra2;
-	private Muestra muestra3;
-	private Muestra muestra4;
-	
-	private Muestra muestra5;
-	private Muestra muestra6;
-	private Muestra muestra7;
-	private Muestra muestra8;
+
 	@BeforeEach
 	void setUp() throws Exception {
 		// inicializo las funciones
-		this.funcion1= new FiltroDeMuestras();
-		this.funcion2= new MuestrasCercanas();
-		this.funcion3= new MuestrasMasJovenes();
-		
+
+		this.funcion1= mock(FiltroDeMuestras.class);
+		this.funcion2= mock(MuestrasCercanas.class);
+		this.funcion3= mock(MuestrasMasJovenes.class);
+		this.funcion4= mock(ImprimirMuestra.class);
+				
 		// preparo la organizacion con las funciones 1 y 2
 		
-		unq=  new Organizacion(null, null, 0, this.funcion1,this.funcion1);
+		unq=  new Organizacion(null, null, 0, this.funcion1,this.funcion2);
 		this.zona1= new ZonaDeCobertura("centrica",mock(Ubicacion.class) , 8d,mock(SistemaDeMuestras.class));
-		this.zona2= mock(ZonaDeCobertura.class);
 		
-			// Muestras de prueba
-		this.muestra1=new Muestra(Especie.GUASAYANA, "foto/especie1",mock(Ubicacion.class),mock(Usuario.class));
-		this.muestra2=new Muestra(Especie.INFESTANS, "foto/especie2", new Ubicacion(-34.71667d,-58.3d),mock(Usuario.class));
-		this.muestra3=new Muestra(Especie.GUASAYANA, "foto/especie1",mock(Ubicacion.class),mock(Usuario.class));
-		this.muestra4=new Muestra(Especie.GUASAYANA, "foto/especie1",mock(Ubicacion.class),mock(Usuario.class));
-		
-		this.muestra5=mock(Muestra.class);
-		this.muestra6=mock(Muestra.class);
-		this.muestra7=mock(Muestra.class);
-		this.muestra8=mock(Muestra.class);
-		
+		this.muestra1=mock(Muestra.class);
 	}
 
 	@Test
@@ -57,6 +42,8 @@ class OrganizacionTest {
 		this.unq.registrarseAZona(this.zona1);
 		
 			assertTrue(this.unq.zonasDeInteres().contains(this.zona1));
+			assertTrue(this.zona1.organizacionesRegistradas().contains(this.unq));
+			
 	}
 	
 	@Test
@@ -66,26 +53,87 @@ class OrganizacionTest {
 		assertFalse(this.unq.zonasDeInteres().contains(this.zona1));
 		
 	}
-
-	@Test
-	void recibirResultadosDeFiltroDeMuestrasTest() {
-		this.zona1.cargarMuestra(muestra1);
-		this.zona1.cargarMuestra(muestra2);
-		
-		this.unq.cargaDeMuestra(this.zona1, this.muestra3);
 	
-		assertEquals(1, this.unq.getMuestrasDeInteres().size());
+	// Test de cambiar de Funciones
+	
+	@Test 
+	void cambiarDeFuncionCargaDeMuestraTest() {
+		this.unq.setFuncionDeCargaDeMuestra(funcion3);
+		assertEquals(this.funcion3,this.unq.getFuncionDeCarga());
+	}
+	@Test 
+	void cambiarDeFuncionDeVAlidacionDeMuestraTest() {
+		this.unq.setFuncionDeValidacionDeMuestra(funcion4);
+		assertEquals(this.funcion4,this.unq.getFuncionDeValidacion());
+	}
+	
+
+	// probando cada una de las funciones de Carga
+	
+	
+	@Test
+	void cargarMuestraFuncion1Test() {
+		
+		this.unq.cargaDeMuestra(this.zona1, this.muestra1);
+		verify(this.funcion1).nuevoEvento(unq, zona1, muestra1);
+	}
+	@Test
+	void cargarMuestraFuncion2Test() {
+		
+		this.unq.setFuncionDeCargaDeMuestra(funcion2);
+		this.unq.cargaDeMuestra(this.zona1, this.muestra1);
+		verify(this.funcion2).nuevoEvento(unq, zona1, muestra1);
+	}
+	@Test
+	void cargarMuestraFuncion3Test() {
+		
+		this.unq.setFuncionDeCargaDeMuestra(funcion3);
+		this.unq.cargaDeMuestra(this.zona1, this.muestra1);
+		verify(this.funcion3).nuevoEvento(unq, zona1, muestra1);
+	}
+	@Test
+	void cargarMuestraFuncion4Test() {
+		
+		this.unq.setFuncionDeCargaDeMuestra(funcion4);
+		this.unq.cargaDeMuestra(this.zona1, this.muestra1);
+		verify(this.funcion4).nuevoEvento(unq, zona1, muestra1);
 	}
 
-	@Test
-	void recibirResultadosDeFiltroDeMuestrasValidadasTest() {
-		when(this.muestra2.esVerificada()).thenReturn(true);
+
+
+	// probando cada una de las funciones de Validacion
 	
-		this.zona1.cargarMuestra(this.muestra1);
-		this.zona1.cargarMuestra(this.muestra2);
+	@Test
+	void cargarValidacionFuncion1Test() {
 		
-		this.unq.validacionDeMuestra(this.zona2, this.muestra6);
-		assertEquals(1, this.unq.getMuestrasSobreSalientes().size());
-		
+		this.unq.setFuncionDeValidacionDeMuestra(funcion1);
+		this.unq.validacionDeMuestra  (this.zona1, this.muestra1);
+		verify(this.funcion1).nuevoEvento(unq, zona1, muestra1);
 	}
+	@Test
+	void cargarValidacionFuncion2Test() {
+		
+		this.unq.setFuncionDeValidacionDeMuestra(funcion2);
+		this.unq.validacionDeMuestra  (this.zona1, this.muestra1);
+		verify(this.funcion2).nuevoEvento(unq, zona1, muestra1);
+	}
+	@Test
+	void cargarValidacionFuncion3Test() {
+		
+		this.unq.setFuncionDeValidacionDeMuestra(funcion3);
+		this.unq.validacionDeMuestra  (this.zona1, this.muestra1);
+		verify(this.funcion3).nuevoEvento(unq, zona1, muestra1);
+	}
+	@Test
+	void cargarValidacionFuncion4Test() {
+		
+		this.unq.setFuncionDeValidacionDeMuestra(funcion4);
+		this.unq.validacionDeMuestra  (this.zona1, this.muestra1);
+		verify(this.funcion4).nuevoEvento(unq, zona1, muestra1);
+	}
+	
+	
+	
+
+	
 }

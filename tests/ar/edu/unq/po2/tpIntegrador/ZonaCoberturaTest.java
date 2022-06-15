@@ -28,7 +28,7 @@ class ZonaCoberturaTest  {
 		
 		
 		
-		this.sistema= new SistemaDeMuestras();		
+		this.sistema= mock(SistemaDeMuestras.class); //new SistemaDeMuestras();		
 		this.quilmes = new Ubicacion(-34.72904d , -58.26374d);
 		this.bernal= new Ubicacion(-34.71667d,-58.3d);
 		this.burzaco= new Ubicacion(-34.81667,-58.4 );
@@ -61,10 +61,7 @@ class ZonaCoberturaTest  {
 	void zonaNoSolapadaTest() {
 		assertFalse(this.zona1.zonaSolapada(zona3));
 	}
-	@Test
-	void registrarseEnElSistemaTest() {
-		
-	}
+
 	@Test
 	void cargarOrganizacionComoObservador() {
 		this.zona1.agregarOrganizacionObservadora(this.unq);
@@ -83,7 +80,6 @@ class ZonaCoberturaTest  {
 	void reportarMuestraALosObserversTest() {
 		this.zona1.agregarOrganizacionObservadora(this.unq);		
 		this.zona1.reportarCarga(this.muestra1);
-
 		assertTrue(this.zona1.getMuestrasEnZona().size()==1);
 		verify(this.unq).cargaDeMuestra(this.zona1,this.muestra1);
 	}
@@ -96,7 +92,6 @@ class ZonaCoberturaTest  {
 	@Test
 	void cargarMuestraTest() {
 		this.zona1.cargarMuestra(this.muestra1);
-		//assertTrue(this.zona1.getMuestrasEnZona().size()==1);
 		assertEquals(1,this.zona1.getMuestrasEnZona().size());
 	}
 
