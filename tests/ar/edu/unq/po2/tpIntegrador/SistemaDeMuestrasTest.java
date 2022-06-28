@@ -69,84 +69,93 @@ class SistemaDeMuestrasTest {
 	@Test
 	void testRecaterogizarAUnUsuarioBasicoSinMeritos() {
 		Usuario usuario = new Usuario(912, new UsuarioBasico());
-		sistema.recategorizar(usuario);
+		sistema.nuevoUsuario(usuario);
+		sistema.recategorizar();
 		assertFalse(usuario.esExperto());
 	}
 	
 	@Test
 	void testRecaterogizarAUnUsuarioBasicoConMasDe10CargasSuyasPeroNoConMasDe20Validaciones() throws Exception {
 		Usuario usuario = new Usuario(912, new UsuarioBasico());
+		sistema.nuevoUsuario(usuario);
 		muestra = new Muestra(Especie.INFESTANS, "images/31-infestans.jpg", Mockito.mock(Ubicacion.class), usuario);
 		this.cargar(11, muestra);
-		sistema.recategorizar(usuario);
+		sistema.recategorizar();
 		assertFalse(usuario.esExperto());
 	}
 	
 	@Test
 	void testRecaterogizarAUnUsuarioBasicoConMasDe20ValidacionesSuyasPeroNoConMasDe10Cargas() throws Exception {
 		Usuario usuario = new Usuario(912, new UsuarioBasico());
+		sistema.nuevoUsuario(usuario);
 		Opinion opinion = new Opinion(usuario, Especie.GUASAYANA);
 		this.creadorDeMuestras(21, opinion);
-		sistema.recategorizar(usuario);
+		sistema.recategorizar();
 		assertFalse(usuario.esExperto());
 	}
 	
 	@Test
 	void testRecaterogizarAUnUsuarioBasicoConRequisitosCumplidosParaSerExperto() throws Exception {
 		Usuario usuario = new Usuario(912, new UsuarioBasico());
+		sistema.nuevoUsuario(usuario);
 		muestra = new Muestra(Especie.INFESTANS, "images/31-infestans.jpg", Mockito.mock(Ubicacion.class), usuario);
 		Opinion opinion = new Opinion(usuario, Especie.GUASAYANA);
 		this.cargar(11, muestra);
 		this.creadorDeMuestras(21, opinion);
-		sistema.recategorizar(usuario);
+		sistema.recategorizar();
 		assertTrue(usuario.esExperto());
 	}
 	
 	@Test
 	void testRecaterogizarAUnUsuarioExpertoSiNoCumpleRequisitosParaSeguirSiendoExperto() {
 		Usuario usuario = new Usuario(912, new UsuarioExperto()); // Empieza siendo experto
-		sistema.recategorizar(usuario);
+		sistema.nuevoUsuario(usuario);
+		sistema.recategorizar();
 		assertFalse(usuario.esExperto()); // Termina siendo no-experto
 	}
 	
 	@Test
 	void testRecategorizarUsuarioExpertoSiNoTieneMasDe20Validaciones() throws Exception {
 		Usuario usuario = new Usuario(912, new UsuarioExperto());
+		sistema.nuevoUsuario(usuario);
 		muestra = new Muestra(Especie.INFESTANS, "images/31-infestans.jpg", Mockito.mock(Ubicacion.class), usuario);
 		this.cargar(11, muestra);
-		sistema.recategorizar(usuario);
+		sistema.recategorizar();
 		assertFalse(usuario.esExperto());
 	}
 	
 	@Test
 	void testRecategorizarUsuarioExpertoSiNoTieneMasDe10Cargas() throws Exception{
 		Usuario usuario = new Usuario(912, new UsuarioExperto());
+		sistema.nuevoUsuario(usuario);
 		Opinion opinion = new Opinion(usuario, Especie.GUASAYANA);
 		this.creadorDeMuestras(21, opinion);
-		sistema.recategorizar(usuario);
+		sistema.recategorizar();
 		assertFalse(usuario.esExperto());
 	}
 	
 	@Test
 	void testRecategorizarAUnUsuarioExpertoSiCumpleRequisitosDeberiaMantenerseComoExperto() throws Exception {
 		Usuario usuario = new Usuario(912, new UsuarioExperto());
+		sistema.nuevoUsuario(usuario);
 		muestra = new Muestra(Especie.INFESTANS, "images/31-infestans.jpg", Mockito.mock(Ubicacion.class), usuario);
 		Opinion opinion = new Opinion(usuario, Especie.GUASAYANA);
 		this.cargar(11, muestra);
 		this.creadorDeMuestras(21, opinion);
-		sistema.recategorizar(usuario);
+		sistema.recategorizar();
 		assertTrue(usuario.esExperto());
 	}
 	
 	@Test
 	void testRecategorizarAUnUsuarioValidadoExternamenteNoDeberiaCambiarSuCondicionDeExperto() {
 		Usuario usuario = new Usuario(912, new UsuarioValidadoExternamente());
-		sistema.recategorizar(usuario);
+		sistema.nuevoUsuario(usuario);
+		sistema.recategorizar();
 		assertTrue(usuario.esExperto());
 	}
 	
 	void creadorDeMuestras(int cantidad, Opinion opinion) throws Exception {
-		// Método auxiliar a los tests para hacer carga masiva de muestras de diferentes usuarios
+		// Mï¿½todo auxiliar a los tests para hacer carga masiva de muestras de diferentes usuarios
 		List<Muestra> muestras = new ArrayList<>();
 		for (int i = 1; i <= cantidad; i++) {
 			Usuario usuario = new Usuario(i, new UsuarioBasico());
@@ -165,7 +174,7 @@ class SistemaDeMuestrasTest {
 	}
 	
 	void cargar(int cantidad, Muestra muestra) {
-		// Método auxiliar a los tests para hacer carga masiva de muestras
+		// Mï¿½todo auxiliar a los tests para hacer carga masiva de muestras
 		for (int i = 1; i <= cantidad; i++) {
 			sistema.nuevaCarga(muestra);
 		}

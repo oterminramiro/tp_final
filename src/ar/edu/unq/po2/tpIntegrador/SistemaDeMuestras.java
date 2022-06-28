@@ -15,6 +15,7 @@ public  class SistemaDeMuestras extends Observable {
 
 	private List<Muestra> muestras = new ArrayList<Muestra>();
 	private List<ZonaDeCobertura> zonasDeCoberturas = new ArrayList<ZonaDeCobertura>();
+	private List<Usuario> usuarios = new ArrayList<Usuario>();
 	
 	private void nuevaValidacion(Muestra muestra) {
 		zonasDeCoberturas.forEach(z -> z.reportarValidacion(muestra));
@@ -32,10 +33,10 @@ public  class SistemaDeMuestras extends Observable {
 		}
 	}
 	
-	public void recategorizar(Usuario usuario) {
+	public void recategorizar() {
 		FiltroFechaDeCreacion filtro = new FiltroFechaDeCreacion(new FechaMayorIgualEstrategia(), LocalDate.now().minusDays(30));
 		List <Muestra> muestrasDeLosUltimos30Dias = this.buscar(filtro);
-		usuario.recategorizarConsiderando(muestrasDeLosUltimos30Dias, this);
+		this.usuarios.stream().forEach(usuario -> usuario.recategorizarConsiderando(muestrasDeLosUltimos30Dias, this));
 	}
 	
 	public List<Muestra> muestras() {
@@ -56,5 +57,9 @@ public  class SistemaDeMuestras extends Observable {
 
 	public int revisionesDelUsuarioEn(Usuario usuario, List<Muestra> muestras) {
 		return (int) muestras.stream().filter(muestra -> muestra.fueOpinadaPor(usuario)).count();
+	}
+
+	public void nuevoUsuario(Usuario usuario) {
+		this.usuarios.add(usuario);
 	}
 }

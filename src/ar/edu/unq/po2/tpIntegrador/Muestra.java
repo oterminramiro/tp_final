@@ -48,8 +48,7 @@ public class Muestra {
 	}
 
 	public Opinable resultadoActual() {
-		return ContadorDeOpiniones
-				.usando(opinionesCuantificables.stream().map(Opinion::tipo).collect(Collectors.toList()))
+		return new ContadorDeOpiniones(opinionesCuantificables.stream().map(Opinion::tipo).collect(Collectors.toList()))
 				.opinionMasVotada();
 	}
 
