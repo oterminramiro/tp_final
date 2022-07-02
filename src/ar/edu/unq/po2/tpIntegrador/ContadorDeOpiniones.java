@@ -15,16 +15,19 @@ public class ContadorDeOpiniones {
 	private Map<Integer, Opinable> ocurrencias;
 	private Set<Opinable> set;
 	
-	private ContadorDeOpiniones(List<Opinable> opiniones) {
+	public ContadorDeOpiniones() {
+		opiniones = new ArrayList<>();
+		ocurrencias = new HashMap<>();
+		indices = new ArrayList<>();
+		set = new HashSet<>();
+	}
+	
+	public ContadorDeOpiniones(List<Opinable> opiniones) {
 		this.opiniones = opiniones;
 		ocurrencias = new HashMap<>();
 		indices = new ArrayList<>();
 		set = new HashSet<>(opiniones);
 		this.procesarOpiniones();
-	}
-	
-	public static ContadorDeOpiniones usando(List<Opinable> opiniones) {
-		return new ContadorDeOpiniones(opiniones);
 	}
 
 	public Opinable opinionMasVotada() {

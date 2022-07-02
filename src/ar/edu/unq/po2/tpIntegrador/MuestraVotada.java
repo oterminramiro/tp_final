@@ -7,7 +7,7 @@ public class MuestraVotada extends EstadoDeMuestra {
 
 	@Override
 	public boolean esVerificadoConsiderando(List<Opinion> opiniones, Muestra muestraOrigen) {
-		int mayorCantidadDeVotos = ContadorDeOpiniones.usando(opiniones.stream().map(Opinion::tipo).collect(Collectors.toList())).mayorCoincidenciaDeVotos();
+		int mayorCantidadDeVotos = new ContadorDeOpiniones(opiniones.stream().map(Opinion::tipo).collect(Collectors.toList())).mayorCoincidenciaDeVotos();
 		boolean esVerificada = opiniones.stream().anyMatch(Opinion::esDeExperto) && mayorCantidadDeVotos >= 2;	
 		if (esVerificada)
 			muestraOrigen.cambiarEstadoDeVerificacionCon(new MuestraVerificada());
